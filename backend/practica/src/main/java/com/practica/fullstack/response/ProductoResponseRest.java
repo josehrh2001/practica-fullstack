@@ -1,13 +1,11 @@
-package response;
+package com.practica.fullstack.response;
 
-import com.practica.fullstack.model.Producto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class ProductoResponseRest {
+public class ProductoResponseRest extends ResponseRest{
     private ProductoResponse productoResponse = new ProductoResponse();
+
 }

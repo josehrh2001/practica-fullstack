@@ -1,4 +1,4 @@
-package dao;
+package com.practica.fullstack.dao;
 
 import com.practica.fullstack.model.Producto;
 import org.springframework.data.repository.CrudRepository;

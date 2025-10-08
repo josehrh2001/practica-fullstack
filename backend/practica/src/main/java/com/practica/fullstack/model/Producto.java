@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+
 import java.io.Serializable;
 
 @Data
@@ -23,7 +24,7 @@ public class Producto implements Serializable {
 
     @NotBlank
     @Column(nullable = false, unique = true)
-    private String name;
+    private String nombre;
 
     private String marca;
 

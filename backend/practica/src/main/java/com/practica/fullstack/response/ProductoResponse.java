@@ -1,4 +1,4 @@
-package response;
+package com.practica.fullstack.response;
 
 import com.practica.fullstack.model.Producto;
 import lombok.Data;

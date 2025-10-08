@@ -1,4 +1,4 @@
-package response;
+package com.practica.fullstack.response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
