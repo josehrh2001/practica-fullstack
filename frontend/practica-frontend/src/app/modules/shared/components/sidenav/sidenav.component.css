@@ -8,8 +8,21 @@
     right: 0;;
 }
 
+.is-mobile .dashboard-toolbar{
+    position: fixed;
+    z-index: 2;
+}
+
 h1.app-name {
     margin-left: 8px;
+}
+
+.sidenav-container {
+    flex: 1;
+}
+
+.is-mobile {
+    flex: 1 0 auto;
 }
 
 ul li {
@@ -23,4 +36,17 @@ div ul {
 
 .right {
     margin-left: auto;
+}
+
+.profile-card {
+    text-align: center;
+    padding: 0 20px 20px 20px;
+}
+
+.header {
+    margin-top: 20px;
+}
+
+.icono{
+    margin-right: 10px;
 }

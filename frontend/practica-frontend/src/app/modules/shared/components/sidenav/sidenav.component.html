@@ -1,8 +1,11 @@
-<div clas="dashboard-container">
+<div class="dashboard-container" [class.is-mobile]="mobileQuery.matches">
 
-    <!-- Empieza toolbar-->
-    <mat-toolbar color="primary">
-        <button mat-icon-button><mat-icon>menu</mat-icon></button>
+    <!-- Toolbar siempre arriba -->
+    <mat-toolbar color="primary" class="dashboard-toolbar">
+        <button mat-icon-button (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
         <h1 class="app-name">Productos</h1>
 
         <div class="right">
@@ -19,16 +22,42 @@
 
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item>
-                        <mat-icon>exit_to_app</mat-icon>
-                        <span>Cerrar sesión</span>
+                            <mat-icon>exit_to_app</mat-icon>
+                            <span>Cerrar sesión</span>
                         </button>
                     </mat-menu>
-
                 </li>
             </ul>
         </div>
-
     </mat-toolbar>
 
-    <router-outlet></router-outlet>
+    <!-- Sidenav debajo del toolbar -->
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="56">
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" 
+        [opened]="!mobileQuery.matches">
+
+            <mat-nav-list>
+                <div class="profile-card">
+                    <div class="header">
+                        <h2>Josep Rios</h2>
+                        <h1>josh@gmail.com</h1>
+                    </div>
+                </div>
+
+                <mat-divider> </mat-divider>
+
+                <a mat-list-item [routerLink]="nav.route" *ngFor="let nav of menuNav">
+                    <mat-icon class="icono">{{ nav.icon }}</mat-icon>
+                    {{ nav.name}}
+                </a>
+
+            </mat-nav-list>
+
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
 </div>
