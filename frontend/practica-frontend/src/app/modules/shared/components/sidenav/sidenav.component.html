@@ -32,7 +32,7 @@
     </mat-toolbar>
 
     <!-- Sidenav debajo del toolbar -->
-    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="56">
+    <mat-sidenav-container class="sidenav-container" style="margin-top: 0;">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" 
         [opened]="!mobileQuery.matches">
 
