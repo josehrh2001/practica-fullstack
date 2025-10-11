@@ -1,0 +1,37 @@
+<h2 mat-dialog-title> Agregar nuevo Producto</h2>
+<mat-dialog-content>
+
+    <form [formGroup]="productoForm">
+        <div class="producto-container">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" formControlName="nombre" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Marca" formControlName="marca" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Categoria" formControlName="categoria" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="number" placeholder="Precio" formControlName="precio" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="number" placeholder="Existencias" formControlName="existencias" required />
+            </mat-form-field>
+
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="primary" (click)="onSave()" [disabled]="productoForm.invalid">
+        <mat-icon>save</mat-icon>Guardar
+    </button>
+    <button mat-button color="primary" (click)="onCancel()">
+        <mat-icon>cancel</mat-icon>Cancelar
+    </button>
+</mat-dialog-actions>

@@ -11,9 +11,20 @@ export class ProductoService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * get all productos
+   */
   getProductos(){
     const endpoint = `${base_url}/productos` 
     return this.http.get(endpoint);
+  }
+
+  /**
+   * guardar el producto
+   */
+  saveProducto(body: any){
+    const endpoint = `${base_url}/productos`;
+    return this.http.post(endpoint, body);
   }
     
 }
