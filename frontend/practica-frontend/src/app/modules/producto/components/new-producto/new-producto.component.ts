@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { inject } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductoService } from 'src/app/modules/shared/services/producto.service';
 
 @Component({
@@ -10,12 +11,18 @@ import { ProductoService } from 'src/app/modules/shared/services/producto.servic
 })
 export class NewProductoComponent implements OnInit {
 
- productoForm!: FormGroup;
+  productoForm!: FormGroup;
+  estadoFormulario: string ;
 
   constructor(private fb: FormBuilder, private productoService: ProductoService,
-              private dialogRef: MatDialogRef<NewProductoComponent>
-  ) { 
-      this.productoForm = this.fb.group({
+    private dialogRef: MatDialogRef<NewProductoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+
+    console.log(data);
+    this.estadoFormulario = "Agregar nuevo";
+
+    this.productoForm = this.fb.group({
       nombre: ['', Validators.required],
       marca: ['', Validators.required],
       categoria: ['', Validators.required],
@@ -23,14 +30,20 @@ export class NewProductoComponent implements OnInit {
       existencias: ['', [Validators.required, Validators.min(0)]]
     });
 
+    if (data != null) {
+      this.updateForm(data);
+      this.estadoFormulario = "Actualizar"
+    }
+
   }
 
-  
+
   ngOnInit(): void {
-    
+
   }
 
-  onSave(){
+  onSave() {
+
     let data = {
       nombre: this.productoForm.get('nombre')?.value,
       marca: this.productoForm.get('marca')?.value,
@@ -39,19 +52,38 @@ export class NewProductoComponent implements OnInit {
       existencias: this.productoForm.get('existencias')?.value
     }
 
-    this.productoService.saveProducto(data)
-            .subscribe( (data:any) => {
-              console.log(data);
-              this.dialogRef.close(1);
-            }, (error:any) => {
-              this.dialogRef.close(2);
-            })
-
+    if (this.data != null) {
+      //Actualizar
+      this.productoService.updateProducto(data, this.data.id)
+        .subscribe((data: any) => {
+          this.dialogRef.close(1);
+        }, (error: any) => {
+          this.dialogRef.close(2);
+        })
+    } else {
+      this.productoService.saveProducto(data)
+        .subscribe((data: any) => {
+          console.log(data);
+          this.dialogRef.close(1);
+        }, (error: any) => {
+          this.dialogRef.close(2);
+        })
+    }
 
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close(3);
+  }
+
+  updateForm(data: any) {
+    this.productoForm = this.fb.group({
+      nombre: [data.nombre, Validators.required],
+      marca: [data.marca, Validators.required],
+      categoria: [data.categoria, Validators.required],
+      precio: [data.precio, [Validators.required, Validators.min(1)]],
+      existencias: [data.existencias, [Validators.required, Validators.min(0)]]
+    });
   }
 
 }

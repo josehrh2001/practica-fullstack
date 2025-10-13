@@ -67,6 +67,22 @@ export class ProductoComponent implements OnInit {
     });
   }
 
+  edit(id:number, nombre:string,marca:string,categoria:string,precio:number,existencias:number,activo:boolean){
+    const dialogRef = this.dialog.open(NewProductoComponent, {
+      width: '450px',
+      data:{id: id,nombre: nombre, marca: marca, categoria: categoria, precio:precio, existencias: existencias, activo: activo}
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if( result == 1){
+        this.openSnackBar("Producto Actualizado", "Exitosa");
+        this.getProductos();
+      }else if (result == 2){
+        this.openSnackBar("Se produjo un error al actualizar producto", "Error");
+      }
+    });
+  }
+
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
       duration: 2000
