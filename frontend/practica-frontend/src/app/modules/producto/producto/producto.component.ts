@@ -124,6 +124,21 @@ export class ProductoComponent implements OnInit {
     }
   }
 
+  Activar(producto: ProductoElement, nuevoValor: boolean) {
+  this.productoService.activarProducto(producto.id, nuevoValor)
+    .subscribe({
+      next: () => {
+        producto.activo = nuevoValor; // actualiza la tabla visualmente
+        this.openSnackBar('Estado actualizado', 'Éxito');
+      },
+      error: (err) => {
+        console.error('Error al actualizar activo:', err);
+        this.openSnackBar('Error al actualizar', 'Error');
+      }
+    });
+ }
+
+
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
       duration: 2000

@@ -44,11 +44,20 @@ export class ProductoService {
   }
 
   /**
-   * get all productos
+   * get producto por id
    */
   getProductoById(id:any){
     const endpoint = `${base_url}/productos/${id}` ;
     return this.http.get(endpoint);
   }
     
+
+   /**
+   * put activar/desactivar producto
+   */
+  activarProducto(id: number, activo: boolean) {
+  const endpoint = `${base_url}/productos/${id}/activar`;
+  return this.http.patch(endpoint, { activo });
+  }
+
 }
