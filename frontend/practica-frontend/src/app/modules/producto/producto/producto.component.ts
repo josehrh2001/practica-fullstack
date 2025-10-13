@@ -5,6 +5,7 @@ import { ProductoService } from '../../shared/services/producto.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewProductoComponent } from '../components/new-producto/new-producto.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-producto',
@@ -82,6 +83,21 @@ export class ProductoComponent implements OnInit {
       }
     });
   }
+
+    delete(id:any){
+      const dialogRef = this.dialog.open(ConfirmComponent, {
+      data:{id: id}
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if( result == 1){
+        this.openSnackBar("Producto Eliminado", "Exitosa");
+        this.getProductos();
+      }else if (result == 2){
+        this.openSnackBar("Se produjo un error al eliminar producto", "Error");
+      }
+    });
+    }
 
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
