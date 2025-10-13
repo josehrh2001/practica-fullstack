@@ -24,6 +24,8 @@ export class ProductoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nombre', 'marca', 'categoria', 'precio', 'existencias', 'activo', 'acciones'];
   dataSource = new MatTableDataSource<ProductoElement>();
 
+
+
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
