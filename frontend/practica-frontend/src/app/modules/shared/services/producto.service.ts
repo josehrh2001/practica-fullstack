@@ -31,7 +31,7 @@ export class ProductoService {
    * actualizar producto 
    */
   updateProducto(body:any, id:any){
-    const endpoint = `${base_url}/productos/ ${id}`;
+    const endpoint = `${base_url}/productos/${id}`;
     return this.http.put(endpoint, body);
   }
 
@@ -39,8 +39,16 @@ export class ProductoService {
    * eliminar producto 
    */
   eliminarProducto(id:any){
-    const endpoint = `${base_url}/productos/ ${id}`;
+    const endpoint = `${base_url}/productos/${id}`;
     return this.http.delete(endpoint);
+  }
+
+  /**
+   * get all productos
+   */
+  getProductoById(id:any){
+    const endpoint = `${base_url}/productos/${id}` ;
+    return this.http.get(endpoint);
   }
     
 }

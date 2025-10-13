@@ -84,7 +84,7 @@ export class ProductoComponent implements OnInit {
     });
   }
 
-    delete(id:any){
+  delete(id:any){
       const dialogRef = this.dialog.open(ConfirmComponent, {
       data:{id: id}
     });
@@ -97,7 +97,32 @@ export class ProductoComponent implements OnInit {
         this.openSnackBar("Se produjo un error al eliminar producto", "Error");
       }
     });
+  }
+
+  buscar(termino:string){
+      if (termino.length === 0) {
+      return this.getProductos();
     }
+
+    // Buscamos el producto por nombre en la lista actual
+    const productoEncontrado = this.dataSource.data.find(
+      (p: any) => p.nombre.toLowerCase().includes(termino.toLowerCase())
+    );
+
+
+    if (productoEncontrado) {
+      // Usamos su id para llamar al método existente
+      this.productoService.getProductoById(productoEncontrado.id)
+        .subscribe((resp: any) => {
+          this.proccesProductoResponse(resp);
+        }, (error) => {
+          console.error('Error al obtener producto por id:', error);
+        });
+    } else {
+      console.warn('No se encontró un producto con ese nombre');
+      this.dataSource.data = []; // opcional: limpia la tabla
+    }
+  }
 
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
